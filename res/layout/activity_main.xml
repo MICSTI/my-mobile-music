@@ -16,6 +16,13 @@
         android:padding="20dip"
         />
     
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator1"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+    
     <TextView
         android:id="@+id/statistics"
         android:layout_width="fill_parent"
@@ -25,6 +32,13 @@
         android:gravity="center_horizontal"
         android:textSize="20sp"
         android:padding="20dip" />
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator2"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
     
     <TextView
         android:id="@+id/settings"
@@ -36,6 +50,13 @@
         android:textSize="20sp"
         android:padding="20dip" />
     
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator3"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+    
     <TextView
         android:id="@+id/update"
         android:layout_width="fill_parent"
@@ -45,5 +66,12 @@
         android:text="@string/menu_update"
         android:textSize="20sp"
         android:padding="20dip" />
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator4"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
 
 </LinearLayout>
