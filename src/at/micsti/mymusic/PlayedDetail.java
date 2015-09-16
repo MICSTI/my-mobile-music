@@ -84,7 +84,7 @@ public class PlayedDetail extends Activity {
 				long timestamp;
 				
 				Calendar cal = new GregorianCalendar();
-				cal.set(datepicker.getYear(), (datepicker.getMonth() + 1), datepicker.getDayOfMonth(), timepicker.getCurrentHour(), timepicker.getCurrentMinute(), 0);
+				cal.set(datepicker.getYear(), datepicker.getMonth(), datepicker.getDayOfMonth(), timepicker.getCurrentHour(), timepicker.getCurrentMinute(), 0);
 				
 				timestamp = cal.getTimeInMillis() / 1000;
 				
