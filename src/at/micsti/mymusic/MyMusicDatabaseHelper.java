@@ -236,7 +236,7 @@ public class MyMusicDatabaseHelper extends SQLiteOpenHelper {
 		String[] where_args = { "SongName", "ArtistName", "RecordName" };
 		
 		for (String wh : where_args) {
-			where += wh + " LIKE '%" + text + "%' OR ";
+			where += wh + " LIKE \"%" + text + "%\" OR ";
 		}
 		
 		String query = "SELECT * FROM SongsView WHERE " + where.substring(0, where.length() - 4);
