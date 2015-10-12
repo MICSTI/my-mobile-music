@@ -31,5 +31,10 @@
     <string name="dummy_played_time">Played time</string>
     <string name="title_activity_played_detail">PlayedDetail</string>
     <string name="title_activity_favourites">Favourites</string>
+    
+    <string name="tab_top2020">Top 20/20</string>
+    <string name="tab_alltime">All time</string>
+    <string name="tab_songs">Songs</string>
+    <string name="tab_artists">Artists</string>
 
 </resources>
