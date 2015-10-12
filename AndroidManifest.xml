@@ -55,6 +55,10 @@
             android:name=".PlayedDetail"
             android:label="@string/title_activity_played_detail" >
         </activity>
+        <activity
+            android:name=".Favourites"
+            android:label="@string/title_activity_favourites" >
+        </activity>
     </application>
 
 </manifest>

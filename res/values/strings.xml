@@ -4,6 +4,7 @@
     <string name="app_name">myMusic</string>
     <string name="menu_add_played_song">Add played song</string>
     <string name="menu_statistics">History</string>
+    <string name="menu_favourites">Favourites</string>
     <string name="menu_update">Update</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_add_played_song">AddPlayedSong</string>
@@ -29,5 +30,6 @@
     <string name="dummy_played_record">Played record</string>
     <string name="dummy_played_time">Played time</string>
     <string name="title_activity_played_detail">PlayedDetail</string>
+    <string name="title_activity_favourites">Favourites</string>
 
 </resources>

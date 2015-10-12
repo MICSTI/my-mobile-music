@@ -38,6 +38,15 @@ public class MainActivity extends Activity {
 			}
 		} );
 		
+		// Favourites menu
+		TextView tvFavouritesId = (TextView) findViewById(R.id.favourites);
+		
+		tvFavouritesId.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showFavourites(v);
+			}
+		} );
+		
 		// Settings menu
 		TextView tvSettingsId = (TextView) findViewById(R.id.settings);
 		
@@ -86,6 +95,11 @@ public class MainActivity extends Activity {
 	public void showStatistics(View view) {
 		Intent statisticsIntent = new Intent(MainActivity.this, Statistics.class);
 		MainActivity.this.startActivity(statisticsIntent);
+	}
+	
+	public void showFavourites(View view) {
+		Intent favouritesIntent = new Intent(MainActivity.this, Favourites.class);
+		MainActivity.this.startActivity(favouritesIntent);
 	}
 	
 	public void updateDatabase(View view) {
