@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="horizontal" >
+ 
+    <TextView
+	     android:id="@+id/songRank"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:padding="4dip"
+	     android:textSize="14sp"
+	     android:textStyle="bold" />
+    
+    <TextView
+	     android:id="@+id/songDiff"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:padding="4dip"
+	     android:textSize="14sp"
+	     android:textStyle="bold" />
+    
+    <LinearLayout
+		 android:layout_width="match_parent"
+		 android:layout_height="match_parent"
+		 android:orientation="vertical">
+        
+        <TextView
+		     android:id="@+id/songName"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:padding="4dip"
+		     android:textSize="14sp"
+		     android:textStyle="bold" />
+	 
+	    <TextView
+		     android:id="@+id/songArtist"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:padding="2dip"
+		     android:textSize="13sp" />
+	    
+	    <TextView
+		     android:id="@+id/songRecord"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:padding="2dip"
+		     android:textSize="11sp" />
+        
+    </LinearLayout>
+    
+    <TextView
+	     android:id="@+id/songPlayCount"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:padding="4dip"
+	     android:textSize="14sp"
+	     android:textStyle="bold" />
+</LinearLayout>
