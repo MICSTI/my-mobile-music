@@ -27,8 +27,8 @@ import android.util.Log;
 public class MyMusicDatabaseHelper extends SQLiteOpenHelper {
 	
 	private static MyMusicDatabaseHelper instance;
-	
-	private static String DB_PATH = "";
+		
+	private static String DB_PATH = "/data/data/at.micsti.mymusic/databases/";
 	
 	private static String ROOT_DIR = "";
 	
@@ -78,30 +78,44 @@ public class MyMusicDatabaseHelper extends SQLiteOpenHelper {
 	public MyMusicDatabaseHelper (Context context) {
 		super(context, DB_NAME, null, 1);
 		
-		if (android.os.Build.VERSION.SDK_INT >= 17) {
-	       DB_PATH = context.getApplicationInfo().dataDir + "/databases/";         
-	    }
-	    else
-	    {
-	       DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-	    }
+		//if (android.os.Build.VERSION.SDK_INT >= 17) {
+	    //   DB_PATH = context.getApplicationInfo().dataDir + "/databases/";         
+	    //}
+	    //else
+	    //{
+	    //   DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+	    //}
 		
-		ROOT_DIR = Environment.getExternalStorageDirectory().toString();
+		//DB_PATH = "/data/" + context.getPackageName() + "/databases/";
+		
+		//DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+		
+		//ROOT_DIR = Environment.getExternalStorageDirectory().toString();
 		
 		this.myContext = context;
 	}
 	
-	public void checkLocalDatabase () {
+	public void checkLocalDatabase () { 
 		// does the local database exist?
 		boolean dbExists = checkDatabase();
 		
+		Log.d("checkDb", "Database exists:" + dbExists);
+		
 		if (!dbExists) {
+			//this.copyDatabaseFromAssetsFolder();
+			//this.downloadDatabase();
+			
+			this.getReadableDatabase();
+			
 			try {
-				this.copyDatabaseFromAssetsFolder();
+				copyDatabaseFromAssetsFolder();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				Log.d("checkDb", "error copying database");
 				e.printStackTrace();
+				throw new Error("Error copying database!");
 			}
+			
+			Log.d("checkDb", "DONE!!!");
 		}
 	}
 	
@@ -179,8 +193,13 @@ public class MyMusicDatabaseHelper extends SQLiteOpenHelper {
 		// Path to the just created empty db
 		String outFileName = DB_PATH + DB_NAME;
 		
+		File newDbFile = new File(outFileName);
+		if (!newDbFile.exists()) {
+			newDbFile.createNewFile();
+		}
+		
 		//Open the empty db as the output stream
-		OutputStream myOutput = new FileOutputStream(outFileName);
+		OutputStream myOutput = new FileOutputStream(outFileName, false);
 		
 		//transfer bytes from the inputfile to the outputfile
 		byte[] buffer = new byte[1024];

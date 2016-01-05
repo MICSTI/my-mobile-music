@@ -34,8 +34,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import at.micsti.mymusic.DownloadTask.OnTaskCompleted;
+import at.micsti.mymusic.UploadTask.OnUploadCompleted;
 
-public class Update extends Activity {
+public class Update extends Activity implements OnTaskCompleted, OnUploadCompleted {
 	
 	private static final String BACKEND_API = "http://mymusic.micsti.at/api.php?key=mobile_db_mod";
 	
@@ -53,6 +55,11 @@ public class Update extends Activity {
 	
 	private long local_last_modified;
 	
+	private long server_last_modified; 
+	
+	private TextView status;
+	private TextView local_db_mod;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +74,7 @@ public class Update extends Activity {
 		local_last_modified = default_values.getLong(KEY_MOBILE_DB_LAST_MODIFIED, 0);
 		
 		// Local database modification time
-		final TextView local_db_mod = (TextView) findViewById(R.id.local_database_status);
+		local_db_mod = (TextView) findViewById(R.id.local_database_status);
 		local_db_mod.setText("Last database update: " + this.getFormattedTime(local_last_modified));
 		
 		// Update button
@@ -75,7 +82,7 @@ public class Update extends Activity {
 		updateButton.setEnabled(false);
 		
 		// Status text view
-		final TextView status = (TextView) findViewById(R.id.message);
+		status = (TextView) findViewById(R.id.message);
 		
 		// Check network connection
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -95,64 +102,34 @@ public class Update extends Activity {
 				if (myDbHelper.playedEntryExists()) {
 					String mobile_file = myDbHelper.getMobilePlayedXml();
 					
-					// Call URL
-					HttpClient httpclient = new DefaultHttpClient();
-					HttpPost httppost = new HttpPost(UPLOAD_SERVER);
-					
-					try {
-						// Add data
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-						nameValuePairs.add(new BasicNameValuePair("mobile_played", mobile_file));
-						
-						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-						
-						// Execute request
-						HttpResponse response = httpclient.execute(httppost);
-						
-						// Delete played entries
-						myDbHelper.deletePlayed();
-						
-						addUpdateMessage("uploaded mobile played file");
-					} catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					new UploadTask(UPLOAD_SERVER, mobile_file, Update.this).execute("DO IT");
 				} else {
 					addUpdateMessage("no new entries to upload!");
-				}
-				
-				status.setText(update_message);
-				
-				// Check if newer mobile database file is available
-				File mobile_db_file = new File(DB_SERVER_FILE);
-				
-				long server_last_modified = -1;
-				try {
-					server_last_modified = Long.parseLong(getFileContents(BACKEND_API));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-				
-				if (server_last_modified > local_last_modified) {
-					myDbHelper.closeConnection();
-					myDbHelper.downloadDatabase();
-					myDbHelper.openDatabase();
-					
-					// Save new current timestamp of database
-					SharedPreferences.Editor editor = default_values.edit();
-					editor.putLong(KEY_MOBILE_DB_LAST_MODIFIED, server_last_modified);
-					editor.commit();
-					
-					addUpdateMessage("Download successful!");
 					status.setText(update_message);
 					
-					local_last_modified = default_values.getLong(KEY_MOBILE_DB_LAST_MODIFIED, 0);
-					local_db_mod.setText("Last database updat: " + getFormattedTime(local_last_modified));
+					checkIfNewerDatabaseExists();
 				}
 			}
 		} );
+	}
+	
+	private void checkIfNewerDatabaseExists() {
+		// Check if newer mobile database file is available
+		File mobile_db_file = new File(DB_SERVER_FILE);
+		
+		server_last_modified = -1;
+		try {
+			server_last_modified = Long.parseLong(getFileContents(BACKEND_API));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		if (server_last_modified > local_last_modified) {
+			myDbHelper.closeConnection();
+			
+			new DownloadTask(myDbHelper, Update.this).execute("DO IT");
+		}
 	}
 
 	@Override
@@ -198,5 +175,31 @@ public class Update extends Activity {
 		String time = String.format("%02d:%02d", hour, minute);
 		
 		return date + " " + time;
+	}
+
+	@Override
+	public void onTaskCompleted(String s) {
+		myDbHelper.openDatabase();
+		
+		// Save new current timestamp of database
+		SharedPreferences.Editor editor = default_values.edit();
+		editor.putLong(KEY_MOBILE_DB_LAST_MODIFIED, server_last_modified);
+		editor.commit();
+		
+		addUpdateMessage("Download successful!");
+		status.setText(update_message);
+		
+		local_last_modified = default_values.getLong(KEY_MOBILE_DB_LAST_MODIFIED, 0);
+		local_db_mod.setText("Last database update: " + getFormattedTime(local_last_modified));
+	}
+
+	@Override
+	public void onUploadCompleted(String s) {
+		// Delete played entries
+		myDbHelper.deletePlayed();
+		
+		addUpdateMessage("uploaded mobile played file");
+		
+		checkIfNewerDatabaseExists();
 	}
 }

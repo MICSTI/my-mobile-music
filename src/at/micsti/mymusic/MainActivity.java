@@ -1,15 +1,19 @@
 package at.micsti.mymusic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+import at.micsti.mymusic.DownloadTask.OnTaskCompleted;
 
 public class MainActivity extends Activity {
 	
@@ -70,6 +74,17 @@ public class MainActivity extends Activity {
 		
 		this.myDbHelper.checkLocalDatabase();
 		
+		try {
+			this.myDbHelper.openDatabase();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		//this.myDbHelper.checkLocalDatabase();
+		
+		// check if database exists (if not, download it)
+		//new DownloadTask(this.myDbHelper).execute("DO IT");
+		
 		/*try {
 			this.myDbHelper.copyDatabaseFromAssetsFolder();
 		} catch (IOException e) {
@@ -77,7 +92,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}*/
 		
-		this.myDbHelper.openDatabase();
+		//this.myDbHelper.openDatabase();
 	}
 
 	@Override
