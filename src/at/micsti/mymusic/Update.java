@@ -34,7 +34,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.micsti.mymusic.DownloadTask.OnTaskCompleted;
+import at.micsti.mymusic.FetchUrlContentTask.OnFetchCompleted;
 import at.micsti.mymusic.UploadTask.OnUploadCompleted;
 
 public class Update extends Activity implements OnTaskCompleted, OnUploadCompleted {
@@ -114,22 +116,30 @@ public class Update extends Activity implements OnTaskCompleted, OnUploadComplet
 	}
 	
 	private void checkIfNewerDatabaseExists() {
-		// Check if newer mobile database file is available
-		File mobile_db_file = new File(DB_SERVER_FILE);
-		
 		server_last_modified = -1;
-		try {
-			server_last_modified = Long.parseLong(getFileContents(BACKEND_API));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
 		
-		if (server_last_modified > local_last_modified) {
-			myDbHelper.closeConnection();
+		new FetchUrlContentTask(BACKEND_API, new OnFetchCompleted() {
+
+			@Override
+			public void onFetchCompleted(String s) {
+				try {
+					server_last_modified = Long.parseLong(s);
+					
+					if (server_last_modified > local_last_modified) {
+						myDbHelper.closeConnection();
+						
+						new DownloadTask(myDbHelper, Update.this).execute("DO IT");
+					} else {
+						addUpdateMessage("Database up to date");
+						status.setText(update_message);
+					}
+				} catch (Exception e) {
+					addUpdateMessage("Failed to get database modified info");
+					status.setText(update_message);
+				}
+			}
 			
-			new DownloadTask(myDbHelper, Update.this).execute("DO IT");
-		}
+		}).execute("DO IT");
 	}
 
 	@Override
