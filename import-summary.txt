@@ -1,0 +1,156 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* .idea\
+* .idea\compiler.xml
+* .idea\copyright\
+* .idea\copyright\profiles_settings.xml
+* .idea\encodings.xml
+* .idea\misc.xml
+* .idea\workspace.xml
+* LICENSE
+* README.md
+* app\
+* app\build.gradle
+* app\libs\
+* app\libs\commons-net-3.3.jar
+* app\src\
+* app\src\main\
+* app\src\main\AndroidManifest.xml
+* app\src\main\assets\
+* app\src\main\assets\myMobileMusic.DB
+* app\src\main\java\
+* app\src\main\java\at\
+* app\src\main\java\at\micsti\
+* app\src\main\java\at\micsti\mymusic\
+* app\src\main\java\at\micsti\mymusic\AddPlayedSong.java
+* app\src\main\java\at\micsti\mymusic\ChartArtist.java
+* app\src\main\java\at\micsti\mymusic\ChartArtistAdapter.java
+* app\src\main\java\at\micsti\mymusic\ChartSong.java
+* app\src\main\java\at\micsti\mymusic\ChartSongAdapter.java
+* app\src\main\java\at\micsti\mymusic\DownloadTask.java
+* app\src\main\java\at\micsti\mymusic\Favourites.java
+* app\src\main\java\at\micsti\mymusic\FetchUrlContentTask.java
+* app\src\main\java\at\micsti\mymusic\MainActivity.java
+* app\src\main\java\at\micsti\mymusic\ManageSettings.java
+* app\src\main\java\at\micsti\mymusic\MyMusicDatabaseHelper.java
+* app\src\main\java\at\micsti\mymusic\Played.java
+* app\src\main\java\at\micsti\mymusic\PlayedAdapter.java
+* app\src\main\java\at\micsti\mymusic\PlayedDetail.java
+* app\src\main\java\at\micsti\mymusic\Song.java
+* app\src\main\java\at\micsti\mymusic\SongsAdapter.java
+* app\src\main\java\at\micsti\mymusic\SpinnerDeviceObject.java
+* app\src\main\java\at\micsti\mymusic\Statistics.java
+* app\src\main\java\at\micsti\mymusic\Update.java
+* app\src\main\java\at\micsti\mymusic\UploadTask.java
+* app\src\main\res\
+* app\src\main\res\drawable-hdpi\
+* app\src\main\res\drawable-hdpi\ic_launcher.png
+* app\src\main\res\drawable-ldpi\
+* app\src\main\res\drawable-ldpi\ic_launcher.png
+* app\src\main\res\drawable-mdpi\
+* app\src\main\res\drawable-mdpi\ic_launcher.png
+* app\src\main\res\drawable-xhdpi\
+* app\src\main\res\drawable-xhdpi\ic_launcher.png
+* app\src\main\res\drawable-xxhdpi\
+* app\src\main\res\drawable-xxhdpi\ic_launcher.png
+* app\src\main\res\layout\
+* app\src\main\res\layout\activity_add_played_song.xml
+* app\src\main\res\layout\activity_favourites.xml
+* app\src\main\res\layout\activity_main.xml
+* app\src\main\res\layout\activity_manage_settings.xml
+* app\src\main\res\layout\activity_played_detail.xml
+* app\src\main\res\layout\activity_statistics.xml
+* app\src\main\res\layout\activity_update.xml
+* app\src\main\res\layout\item_chart_artist.xml
+* app\src\main\res\layout\item_chart_song.xml
+* app\src\main\res\layout\item_played.xml
+* app\src\main\res\layout\item_song.xml
+* app\src\main\res\menu\
+* app\src\main\res\menu\activity_add_played_song.xml
+* app\src\main\res\menu\activity_favourites.xml
+* app\src\main\res\menu\activity_main.xml
+* app\src\main\res\menu\activity_manage_settings.xml
+* app\src\main\res\menu\activity_played_detail.xml
+* app\src\main\res\menu\activity_statistics.xml
+* app\src\main\res\menu\activity_update.xml
+* app\src\main\res\values-v11\
+* app\src\main\res\values-v11\styles.xml
+* app\src\main\res\values-v14\
+* app\src\main\res\values-v14\styles.xml
+* app\src\main\res\values\
+* app\src\main\res\values\colors.xml
+* app\src\main\res\values\strings.xml
+* app\src\main\res\values\styles.xml
+* app\src\main\res\xml\
+* app\src\main\res\xml\searchable.xml
+* build.gradle
+* gradle\
+* gradle\wrapper\
+* gradle\wrapper\gradle-wrapper.jar
+* gradle\wrapper\gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* ic_launcher-web.png
+* proguard-project.txt
+* release\
+* release\myMusic.apk
+* settings.gradle
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:20.0.0
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+appcompat-v7 => [com.android.support:appcompat-v7:20.0.0]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets\
+* libs\commons-net-3.3.jar => app\libs\commons-net-3.3.jar
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
